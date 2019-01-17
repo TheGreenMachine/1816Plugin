@@ -1,0 +1,46 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.6'
+}
+
+javafx {
+    modules = ['javafx.controls', 'javafx.fxml']
+}
+
+version '1.0-SNAPSHOT'
+
+jar {
+    manifest {
+        attributes 'Main-Class' : ''
+    }
+    baseName = 'RobotGraphWidget'
+}
+
+
+ext.getShuffleboardVersion = {
+    return '2019.1.1'
+}
+
+
+wrapper {
+    gradleVersion = '5.0'
+}
+
+
+repositories {
+    maven {
+        url 'https://plugins.gradle.org/m2/'
+    }
+    maven {
+        name = 'WPI'
+        url = 'http://first.wpi.edu/FRC/roborio/maven/release'
+    }
+    
+    mavenCentral()
+}
+
+dependencies {
+    compile 'edu.wpi.first.shuffleboard:api:'  + getShuffleboardVersion()
+    compile 'edu.wpi.first.shuffleboard.plugin:networktables:' + getShuffleboardVersion()
+}
