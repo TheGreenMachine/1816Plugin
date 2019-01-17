@@ -3,6 +3,7 @@ import edu.wpi.first.shuffleboard.api.widget.Description;
 import edu.wpi.first.shuffleboard.api.widget.ParametrizedController;
 import edu.wpi.first.shuffleboard.api.widget.SimpleAnnotatedWidget;
 import edu.wpi.first.shuffleboard.plugin.networktables.sources.NetworkTableSource;
+
 import javafx.animation.AnimationTimer;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -21,8 +22,10 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 
 
-@Description(name = "Widget Test", dataTypes = Point2D.class)
+@Description(name = "Robot XY Grapher", dataTypes = Point2D.class)
 @ParametrizedController(value = "/sample.fxml")
+
+
 public class Controller extends SimpleAnnotatedWidget {
 
     private Point2D coord = new Point2D();
