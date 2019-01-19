@@ -1,20 +1,16 @@
-import edu.wpi.first.shuffleboard.api.sources.DataSource;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.shuffleboard.api.widget.Description;
 import edu.wpi.first.shuffleboard.api.widget.ParametrizedController;
 import edu.wpi.first.shuffleboard.api.widget.SimpleAnnotatedWidget;
-import edu.wpi.first.shuffleboard.plugin.networktables.sources.NetworkTableSource;
-
 import javafx.animation.AnimationTimer;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import org.fxmisc.easybind.EasyBind;
-import org.fxmisc.easybind.monadic.PropertyBinding;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutorService;
@@ -30,14 +26,19 @@ public class Controller extends SimpleAnnotatedWidget {
 
     private Point2D coord = new Point2D();
 
-    DataSource<?> robotPosition = NetworkTableSource.forKey("RobotPositionTable");
-    final ObjectProperty<DataSource> positionDataSource = new SimpleObjectProperty<>(this, "RobotSource", DataSource.none());
-    final PropertyBinding<Point2D> positionData = EasyBind.monadic(positionDataSource).selectProperty(DataSource::dataProperty);
+//    DataSource<?> robotPosition = NetworkTableSource.forKey("positions");
+//
 
-//    NetworkTableInstance inst = NetworkTableInstance.getDefault();
-//    NetworkTable table = inst.getTable("datatable");
-//    NetworkTableEntry xEntry = table.getEntry("X");
-//    NetworkTableEntry yEntry = table.getEntry("Y");
+    NetworkTableInstance inst = NetworkTableInstance.getDefault();
+    NetworkTable table = inst.getTable("positions");
+
+    NetworkTableEntry xPos = table.getEntry("xPos");
+    NetworkTableEntry yPos = table.getEntry("yPos");
+
+//    final ObjectProperty<DataSource> positionDataSource = new SimpleObjectProperty<>(this, "RobotSource", DataSource.none());
+//    final PropertyBinding<Point2D> positionData = EasyBind.monadic(positionDataSource).selectProperty(DataSource::dataProperty);
+
+
 
     @FXML
     AnchorPane root;
@@ -67,8 +68,8 @@ public class Controller extends SimpleAnnotatedWidget {
     @FXML
     public void initialize() {
 
-        positionDataSource.set(robotPosition);
-        robotPosition.addClient(this);
+//        positionDataSource.set(robotPosition);
+//        robotPosition.addClient(this);
 
         // Creates the LineChart
         coordinate.setTitle("Live Robot Coordinates");
@@ -125,16 +126,8 @@ public class Controller extends SimpleAnnotatedWidget {
         public void run() {
             try {
 
-                // Passing test values.
-                this.x = Math.random() *10;
-                this.y = Math.random() *10;
-
-//                positionData.addListener((unused, previous, current) -> {
-//                    this.x = current.getX();
-//                    this.y = current.getY();
-//                });
-//
-
+                this.x = xPos.getDouble(0);
+                this.y = yPos.getDouble(0);
 
                 pointY.add(y); // add robot coordinates here only y-values being updated here??
                 pointX.add(x); // robot coordinates x-values updating
