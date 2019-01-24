@@ -24,8 +24,6 @@ import java.util.concurrent.ThreadFactory;
 
 public class Controller extends SimpleAnnotatedWidget {
 
-    private Point2D coord = new Point2D();
-
     NetworkTableInstance inst = NetworkTableInstance.getDefault();
     NetworkTable table = inst.getTable("positions");
 
@@ -60,9 +58,6 @@ public class Controller extends SimpleAnnotatedWidget {
     @FXML
     public void initialize() {
 
-//        positionDataSource.set(robotPosition);
-//        robotPosition.addClient(this);
-
         // Creates the LineChart
         coordinate.setTitle("Live Robot Coordinates");
         coordinate.setAnimated(true);
@@ -92,7 +87,7 @@ public class Controller extends SimpleAnnotatedWidget {
     }
 
     public void addDataToSeries() {
-        for (int i = 0; i < 20; i++) { //-- add robot coords to Map/arraylist, get the size of Map or arraylist
+        for (int i = 0; i < 20; i++) {
             if (pointY.isEmpty())
                 break;
             series.getData().add(new XYChart.Data<>(pointX.remove(), pointY.remove()));
@@ -121,11 +116,10 @@ public class Controller extends SimpleAnnotatedWidget {
                 this.x = xPos.getDouble(0);
                 this.y = yPos.getDouble(0);
 
-                pointY.add(y); // add robot coordinates here only y-values being updated here??
-                pointX.add(x); // robot coordinates x-values updating
-                // not sure if the robot coords are always going to be updated
+                pointY.add(y);
+                pointX.add(x);
 
-                Thread.sleep(1000); //graphing is time based
+                Thread.sleep(1000); // recognize that graphingis time based.
                 executor.execute(this::run);
             } catch (InterruptedException ex) {
                 ex.printStackTrace();
