@@ -27,12 +27,14 @@ Before compiling your widget and plugin into a jar, make sure in your `build.gra
 To compile your widget and the plugin into a jar go into your terminal and redirect the source
 to you project and do `./gradlew jar` and make sure your in your `build.gradle` file
 that you have 
-``` jar {
-       manifest {
-          attributes 'Main-Class' : ''
-        }
-       baseName = 'RobotGraphWidget'
-    }``` 
+``` 
+jar {
+    manifest {
+        attributes 'Main-Class' : ''
+    }
+    baseName = 'RobotGraphWidget'
+}
+``` 
 which allows you to create your jar file, which then you can drag into the 'plugins' folder inside wherever your Shuffleboard folder is located.
 
 
