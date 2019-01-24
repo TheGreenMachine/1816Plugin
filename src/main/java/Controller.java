@@ -26,19 +26,11 @@ public class Controller extends SimpleAnnotatedWidget {
 
     private Point2D coord = new Point2D();
 
-//    DataSource<?> robotPosition = NetworkTableSource.forKey("positions");
-//
-
     NetworkTableInstance inst = NetworkTableInstance.getDefault();
     NetworkTable table = inst.getTable("positions");
 
     NetworkTableEntry xPos = table.getEntry("xPos");
     NetworkTableEntry yPos = table.getEntry("yPos");
-
-//    final ObjectProperty<DataSource> positionDataSource = new SimpleObjectProperty<>(this, "RobotSource", DataSource.none());
-//    final PropertyBinding<Point2D> positionData = EasyBind.monadic(positionDataSource).selectProperty(DataSource::dataProperty);
-
-
 
     @FXML
     AnchorPane root;
