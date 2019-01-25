@@ -1,5 +1,3 @@
---insert svg picture---
-
 # Robot Coordinate Widget 
 
 This is the robot position grapher which intakes the x and y coordinates of 
@@ -40,5 +38,13 @@ jar {
 }
 ``` 
 which allows you to create your jar file, which then you can drag into the 'plugins' folder inside wherever your Shuffleboard folder is located.
+
+### Keeping up-to-date
+Inside your `build.gradle` file, particularly the `openjfx` plugin which includes JavaFX version 11 since
+Java 11+ no longer includes JavaFX, be sure to change the version to the latest JFX version
+whenever there is a new release, along with any new Java SDK releases.
+
+The same applies to the Shuffleboard version, which you can also find your running version in the
+`build.gradle` file. 
 
 

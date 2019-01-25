@@ -19,16 +19,16 @@ import java.util.concurrent.ThreadFactory;
 
 
 @Description(name = "Robot XY Grapher", dataTypes = Point2D.class)
-@ParametrizedController(value = "/sample.fxml")
+@ParametrizedController(value = "/coordinategui.fxml")
 
 
-public class Controller extends SimpleAnnotatedWidget {
+public class CoordinateWidget extends SimpleAnnotatedWidget {
 
-    NetworkTableInstance inst = NetworkTableInstance.getDefault();
-    NetworkTable table = inst.getTable("positions");
+    private NetworkTableInstance inst = NetworkTableInstance.getDefault();
+    private NetworkTable table = inst.getTable("positions");
 
-    NetworkTableEntry xPos = table.getEntry("xPos");
-    NetworkTableEntry yPos = table.getEntry("yPos");
+    private NetworkTableEntry xPos = table.getEntry("xPos");
+    private NetworkTableEntry yPos = table.getEntry("yPos");
 
     @FXML
     AnchorPane root;

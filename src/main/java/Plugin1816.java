@@ -11,7 +11,7 @@ public class Plugin1816 extends Plugin {
 
     @Override
     public List<ComponentType> getComponents() {
-        return ImmutableList.of(WidgetType.forAnnotatedWidget(Controller.class));
+        return ImmutableList.of(WidgetType.forAnnotatedWidget(CoordinateWidget.class));
 
 
     }
