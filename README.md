@@ -21,7 +21,7 @@ For further information on how to develop a widget (you won't need to know how t
 
 ### Compiling your widget
 
-Before compiling your widget and plugin into a jar, make sure in your `build.gradle` file that you include these dependencies:
+Before compiling your widget and plugin into a jar (or even working on widget), make sure in your `build.gradle` file that you include these dependencies:
 
 ```
 'edu.wpi.first.shuffleboard:api:'  + current-shuffleboard-version
