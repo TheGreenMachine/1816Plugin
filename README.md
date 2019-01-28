@@ -14,7 +14,7 @@ return ImmutableList.of(WidgetType.forAnnotatedWidget(insert_YourWidgetClassName
 ``` 
 within your `getComponents()` method in the Plugin class.
 
-It also includes one plugin (Robot Grapher) which receives the coordinates of the robot through Networktables and visualizes it on a coordinate plane.
+It also includes one widget (Robot Grapher) which receives the coordinates of the robot through Networktables and visualizes it on a coordinate plane.
 
 For further information on how to develop a widget (you won't need to know how to make a plugin because it's already made)
 [End-to-end custom widget example](https://github.com/wpilibsuite/shuffleboard/wiki/End-to-end-custom-data---widget-example).
