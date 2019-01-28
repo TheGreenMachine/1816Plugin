@@ -1,4 +1,4 @@
-# Robot Coordinate Widget 
+# Green Machine (1816) Plugin
 
 This is the robot position grapher which intakes the x and y coordinates of 
 the robot through a `NetworkTable`. 
