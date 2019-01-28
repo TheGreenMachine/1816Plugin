@@ -29,7 +29,7 @@ Before compiling your widget and plugin into a jar (or even working on widget), 
 ```
 
 To compile your widget and the plugin into a jar go into your terminal and redirect the source
-to you project and do `./gradlew jar` and make sure your in your `build.gradle` file
+to your local project and do `./gradlew jar` BEFORE you do this, make sure your in your `build.gradle` file
 that you have 
 ```gradle
 jar {
