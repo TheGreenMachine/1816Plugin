@@ -1,4 +1,3 @@
-import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.shuffleboard.api.widget.Description;
@@ -25,10 +24,10 @@ import java.util.concurrent.ThreadFactory;
 public class CoordinateWidget extends SimpleAnnotatedWidget {
 
     private NetworkTableInstance inst = NetworkTableInstance.getDefault();
-    private NetworkTable table = inst.getTable("positions");
+//    private NetworkTable table = inst.getTable("positions");
 
-    private NetworkTableEntry xPos = table.getEntry("xPos");
-    private NetworkTableEntry yPos = table.getEntry("yPos");
+    private NetworkTableEntry xPos = inst.getEntry("xPos");
+    private NetworkTableEntry yPos = inst.getEntry("yPos");
 
     @FXML
     AnchorPane root;
