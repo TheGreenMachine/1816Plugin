@@ -1,4 +1,4 @@
-# Robot Coordinate Widget 
+# 1816 Plugin
 
 This is the robot position grapher which intakes the x and y coordinates of 
 the robot through a `NetworkTable`. 
@@ -14,12 +14,14 @@ return ImmutableList.of(WidgetType.forAnnotatedWidget(insert_YourWidgetClassName
 ``` 
 within your `getComponents()` method in the Plugin class.
 
+It also includes one widget (Robot Grapher) which receives the coordinates of the robot through Networktables and visualizes it on a coordinate plane.
+
 For further information on how to develop a widget (you won't need to know how to make a plugin because it's already made)
 [End-to-end custom widget example](https://github.com/wpilibsuite/shuffleboard/wiki/End-to-end-custom-data---widget-example).
 
 ### Compiling your widget
 
-Before compiling your widget and plugin into a jar, make sure in your `build.gradle` file that you include these dependencies:
+Before compiling your widget and plugin into a jar (or even working on widget), make sure in your `build.gradle` file that you include these dependencies:
 
 ```
 'edu.wpi.first.shuffleboard:api:'  + current-shuffleboard-version
@@ -27,7 +29,7 @@ Before compiling your widget and plugin into a jar, make sure in your `build.gra
 ```
 
 To compile your widget and the plugin into a jar go into your terminal and redirect the source
-to you project and do `./gradlew jar` and make sure your in your `build.gradle` file
+to your local project and do `./gradlew jar` BEFORE you do this, make sure your in your `build.gradle` file
 that you have 
 ```gradle
 jar {
