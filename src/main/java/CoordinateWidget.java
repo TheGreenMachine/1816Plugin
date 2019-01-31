@@ -1,3 +1,4 @@
+import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.shuffleboard.api.widget.Description;
@@ -24,7 +25,7 @@ import java.util.concurrent.ThreadFactory;
 public class CoordinateWidget extends SimpleAnnotatedWidget {
 
     private NetworkTableInstance inst = NetworkTableInstance.getDefault();
-//    private NetworkTable table = inst.getTable("positions");
+    private NetworkTable table = inst.getTable("positions");
 
     private NetworkTableEntry xPos = inst.getEntry("xPos");
     private NetworkTableEntry yPos = inst.getEntry("yPos");
@@ -64,9 +65,12 @@ public class CoordinateWidget extends SimpleAnnotatedWidget {
         coordinate.setVerticalGridLinesVisible(true);
         coordinate.setAxisSortingPolicy(LineChart.SortingPolicy.NONE);
 
+        xAxis.setTickUnit(0.1);
+        yAxis.setTickUnit(0.1);
+
         series.setName("Coords");
 
-        // Add Chart Series
+        // add series to chart
         coordinate.getData().addAll(series);
 
         executor = Executors.newCachedThreadPool(new ThreadFactory() {
@@ -90,8 +94,6 @@ public class CoordinateWidget extends SimpleAnnotatedWidget {
             if (pointY.isEmpty())
                 break;
             series.getData().add(new XYChart.Data<>(pointX.remove(), pointY.remove()));
-            // x-value is pointX.remove()
-            // y-value is pointY.remove()
         }
     }
 
@@ -115,10 +117,16 @@ public class CoordinateWidget extends SimpleAnnotatedWidget {
                 this.x = xPos.getDouble(0);
                 this.y = yPos.getDouble(0);
 
+                if (x == 0.00 && y == 0.00) { // check if disabled, because graph will return to point 0,0
+                    coordinate.setAnimated(false);
+                    series.getData().clear();
+                    coordinate.setAnimated(true);
+                }
+
                 pointY.add(y);
                 pointX.add(x);
 
-                Thread.sleep(1000); // recognize that graphingis time based.
+                Thread.sleep(500); // recognize that graphing is time based.
                 executor.execute(this::run);
             } catch (InterruptedException ex) {
                 ex.printStackTrace();
