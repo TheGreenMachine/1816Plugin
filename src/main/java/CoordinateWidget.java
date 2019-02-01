@@ -6,9 +6,11 @@ import edu.wpi.first.shuffleboard.api.widget.ParametrizedController;
 import edu.wpi.first.shuffleboard.api.widget.SimpleAnnotatedWidget;
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
+import javafx.geometry.NodeOrientation;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.CheckBox;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
@@ -27,8 +29,8 @@ public class CoordinateWidget extends SimpleAnnotatedWidget {
     private NetworkTableInstance inst = NetworkTableInstance.getDefault();
     private NetworkTable table = inst.getTable("positions");
 
-    private NetworkTableEntry xPos = inst.getEntry("xPos");
-    private NetworkTableEntry yPos = inst.getEntry("yPos");
+    private NetworkTableEntry xPos = table.getEntry("xPos");
+    private NetworkTableEntry yPos = table.getEntry("yPos");
 
     @FXML
     AnchorPane root;
@@ -43,7 +45,10 @@ public class CoordinateWidget extends SimpleAnnotatedWidget {
     @FXML
     LineChart<Number, Number> coordinate;
 
-    XYChart.Series<Number, Number> series = new XYChart.Series();
+    @FXML
+    CheckBox checkBox;
+
+    private XYChart.Series<Number, Number> series = new XYChart.Series();
 
     // hold data point for y
     public ConcurrentLinkedQueue<Number> pointY = new ConcurrentLinkedQueue<>();
@@ -54,6 +59,7 @@ public class CoordinateWidget extends SimpleAnnotatedWidget {
     // generate random values
     public ExecutorService executor;
 
+    private boolean isReversed = false;
 
     @FXML
     public void initialize() {
@@ -64,9 +70,6 @@ public class CoordinateWidget extends SimpleAnnotatedWidget {
         coordinate.setHorizontalGridLinesVisible(true);
         coordinate.setVerticalGridLinesVisible(true);
         coordinate.setAxisSortingPolicy(LineChart.SortingPolicy.NONE);
-
-        xAxis.setTickUnit(0.1);
-        yAxis.setTickUnit(0.1);
 
         series.setName("Coords");
 
@@ -82,12 +85,30 @@ public class CoordinateWidget extends SimpleAnnotatedWidget {
             }
         });
 
+        reset();
+
         // live update
         AddToQueue addToQueue = new AddToQueue();
         executor.execute(addToQueue);
 
         prepareTimeline();
     }
+
+    @FXML
+    public void reset() {
+        coordinate.setAnimated(false);
+        series.getData().clear();
+        coordinate.setAnimated(true);
+
+        isReversed = checkBox.isSelected();
+        if (isReversed) {
+            coordinate.nodeOrientationProperty().set(NodeOrientation.RIGHT_TO_LEFT);
+
+        } else {
+            coordinate.nodeOrientationProperty().set(NodeOrientation.LEFT_TO_RIGHT);
+        }
+    }
+
 
     public void addDataToSeries() {
         for (int i = 0; i < 20; i++) {
@@ -103,9 +124,8 @@ public class CoordinateWidget extends SimpleAnnotatedWidget {
             public void handle(long now) {
                 addDataToSeries();
             }
-        } .start();
+        }.start();
     }
-
 
     public class AddToQueue implements Runnable {
         private double x;
@@ -117,16 +137,17 @@ public class CoordinateWidget extends SimpleAnnotatedWidget {
                 this.x = xPos.getDouble(0);
                 this.y = yPos.getDouble(0);
 
-                if (x == 0.00 && y == 0.00) { // check if disabled, because graph will return to point 0,0
-                    coordinate.setAnimated(false);
-                    series.getData().clear();
-                    coordinate.setAnimated(true);
+                if (isReversed) {
+                    if (checkBox.isSelected()) {
+                        pointY.add(x);
+                        pointX.add(y);
+                    }
+                } else {
+                    pointY.add(y);
+                    pointX.add(x);
                 }
 
-                pointY.add(y);
-                pointX.add(x);
-
-                Thread.sleep(500); // recognize that graphing is time based.
+                Thread.sleep(1000); // recognize that graphing is time based.
                 executor.execute(this::run);
             } catch (InterruptedException ex) {
                 ex.printStackTrace();
