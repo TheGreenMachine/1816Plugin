@@ -1,3 +1,6 @@
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.shuffleboard.api.widget.Description;
 import edu.wpi.first.shuffleboard.api.widget.ParametrizedController;
 import edu.wpi.first.shuffleboard.api.widget.SimpleAnnotatedWidget;
@@ -23,11 +26,11 @@ import java.util.concurrent.ThreadFactory;
 
 public class CoordinateWidget extends SimpleAnnotatedWidget {
 
-//    private NetworkTableInstance inst = NetworkTableInstance.getDefault();
-//    private NetworkTable table = inst.getTable("positions");
-//
-//    private NetworkTableEntry xPos = table.getEntry("xPos");
-//    private NetworkTableEntry yPos = table.getEntry("yPos");
+    private NetworkTableInstance inst = NetworkTableInstance.getDefault();
+    private NetworkTable table = inst.getTable("positions");
+
+    private NetworkTableEntry xPos = table.getEntry("xPos");
+    private NetworkTableEntry yPos = table.getEntry("yPos");
 
     @FXML
     AnchorPane root;
@@ -141,11 +144,11 @@ public class CoordinateWidget extends SimpleAnnotatedWidget {
         public void run() {
             try {
 
-                this.x = Math.random() * 10;
-                this.y = Math.random() * 10;
+//                this.x = Math.random() * 10;
+//                this.y = Math.random() * 10;
 
-//                this.x = xPos.getDouble(0);
-//                this.y = yPos.getDouble(0);
+                this.x = xPos.getDouble(0);
+                this.y = yPos.getDouble(0);
 
                 if (isReversed) {
                     if (checkBox.isSelected()) {
