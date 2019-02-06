@@ -1,11 +1,18 @@
 plugins {
     id 'java'
     id 'application'
-    id 'org.openjfx.javafxplugin' version '0.0.6'
+    id 'idea'
+    id 'org.openjfx.javafxplugin' version '0.0.7'
+}
+
+mainClassName = 'Main'
+
+javafx {
+    modules = ['javafx.controls', 'javafx.fxml', 'javafx.graphics']
 }
 
 javafx {
-    modules = ['javafx.controls', 'javafx.fxml']
+    version = "11.0.1"
 }
 
 version '2.0'
@@ -14,7 +21,9 @@ jar {
     manifest {
         attributes 'Main-Class' : ''
     }
+    exclude('src/main/java/Main')
     baseName = '1816Plugin'
+
 }
 
 

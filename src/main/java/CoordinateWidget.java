@@ -1,6 +1,3 @@
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.shuffleboard.api.widget.Description;
 import edu.wpi.first.shuffleboard.api.widget.ParametrizedController;
 import edu.wpi.first.shuffleboard.api.widget.SimpleAnnotatedWidget;
@@ -11,6 +8,7 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
@@ -23,21 +21,19 @@ import java.util.concurrent.ThreadFactory;
 @Description(name = "Robot XY Grapher", dataTypes = Point2D.class)
 @ParametrizedController(value = "/coordinategui.fxml")
 
-
 public class CoordinateWidget extends SimpleAnnotatedWidget {
 
-    private NetworkTableInstance inst = NetworkTableInstance.getDefault();
-    private NetworkTable table = inst.getTable("positions");
-
-    private NetworkTableEntry xPos = table.getEntry("xPos");
-    private NetworkTableEntry yPos = table.getEntry("yPos");
+//    private NetworkTableInstance inst = NetworkTableInstance.getDefault();
+//    private NetworkTable table = inst.getTable("positions");
+//
+//    private NetworkTableEntry xPos = table.getEntry("xPos");
+//    private NetworkTableEntry yPos = table.getEntry("yPos");
 
     @FXML
     AnchorPane root;
 
     @FXML
     NumberAxis xAxis = new NumberAxis();
-
 
     @FXML
     NumberAxis yAxis = new NumberAxis();
@@ -47,6 +43,9 @@ public class CoordinateWidget extends SimpleAnnotatedWidget {
 
     @FXML
     CheckBox checkBox;
+
+    @FXML
+    ChoiceBox<Number> choiceBox;
 
     private XYChart.Series<Number, Number> series = new XYChart.Series();
 
@@ -75,6 +74,14 @@ public class CoordinateWidget extends SimpleAnnotatedWidget {
 
         // add series to chart
         coordinate.getData().addAll(series);
+
+        choiceBox.getItems().add(2000);
+        choiceBox.getItems().add(1000);
+        choiceBox.getItems().add(500);
+        choiceBox.getItems().add(50);
+
+        choiceBox.setValue(2000);
+
 
         executor = Executors.newCachedThreadPool(new ThreadFactory() {
             @Override
@@ -134,8 +141,11 @@ public class CoordinateWidget extends SimpleAnnotatedWidget {
         public void run() {
             try {
 
-                this.x = xPos.getDouble(0);
-                this.y = yPos.getDouble(0);
+                this.x = Math.random() * 10;
+                this.y = Math.random() * 10;
+
+//                this.x = xPos.getDouble(0);
+//                this.y = yPos.getDouble(0);
 
                 if (isReversed) {
                     if (checkBox.isSelected()) {
@@ -147,7 +157,7 @@ public class CoordinateWidget extends SimpleAnnotatedWidget {
                     pointX.add(x);
                 }
 
-                Thread.sleep(1000); // recognize that graphing is time based.
+                Thread.sleep(choiceBox.getValue().longValue()); // recognize that graphing is time based.
                 executor.execute(this::run);
             } catch (InterruptedException ex) {
                 ex.printStackTrace();
