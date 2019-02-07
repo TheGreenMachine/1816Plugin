@@ -19,6 +19,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
+import java.util.function.DoubleSupplier;
 
 
 @Description(name = "Robot XY Grapher", dataTypes = Point2D.class)
@@ -152,28 +153,29 @@ public class CoordinateWidget extends SimpleAnnotatedWidget {
     }
 
     public class AddToQueue implements Runnable {
-        private double x;
-        private double y;
+        private DoubleSupplier x;
+        private DoubleSupplier y;
+
+        public AddToQueue() {
+            if (isRobot) {
+                x = () -> xPos.getDouble(0);
+                y = () -> yPos.getDouble(0);
+            } else {
+                x = () -> Math.random() * 10;
+                y = () -> Math.random() * 10;
+            }
+        }
 
         public void run() {
             try {
 
-                if (isRobot) {
-                    this.x = xPos.getDouble(0);
-                    this.y = yPos.getDouble(0);
-                } else {
-                    this.x = Math.random() * 10;
-                    this.y = Math.random() * 10;
-                }
-
                 if (isReversed) {
-                    if (checkBox.isSelected()) {
-                        pointY.add(x);
-                        pointX.add(y);
-                    }
+                        pointY.add(x.getAsDouble());
+                        pointX.add(y.getAsDouble());
+
                 } else {
-                    pointY.add(y);
-                    pointX.add(x);
+                    pointY.add(y.getAsDouble());
+                    pointX.add(x.getAsDouble());
                 }
 
                 Thread.sleep(choiceBox.getValue().longValue()); // recognize that graphing is time based.
