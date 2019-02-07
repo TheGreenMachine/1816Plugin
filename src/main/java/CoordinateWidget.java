@@ -26,11 +26,11 @@ import java.util.concurrent.ThreadFactory;
 
 public class CoordinateWidget extends SimpleAnnotatedWidget {
 
-    private NetworkTableInstance inst = NetworkTableInstance.getDefault();
-    private NetworkTable table = inst.getTable("positions");
+    private NetworkTableInstance inst;
+    private NetworkTable table;
 
-    private NetworkTableEntry xPos = table.getEntry("xPos");
-    private NetworkTableEntry yPos = table.getEntry("yPos");
+    private NetworkTableEntry xPos;
+    private NetworkTableEntry yPos;
 
     @FXML
     AnchorPane root;
@@ -50,7 +50,7 @@ public class CoordinateWidget extends SimpleAnnotatedWidget {
     @FXML
     ChoiceBox<Number> choiceBox;
 
-    private XYChart.Series<Number, Number> series = new XYChart.Series();
+    private XYChart.Series<Number, Number> series = new XYChart.Series<>();
 
     // hold data point for y
     public ConcurrentLinkedQueue<Number> pointY = new ConcurrentLinkedQueue<>();
@@ -62,6 +62,17 @@ public class CoordinateWidget extends SimpleAnnotatedWidget {
     public ExecutorService executor;
 
     private boolean isReversed = false;
+
+    private static boolean isRobot = false;
+
+    public CoordinateWidget() {
+        if (isRobot) {
+            this.inst = NetworkTableInstance.getDefault();
+            this.table = inst.getTable("positions");
+            this.xPos = table.getEntry("xPos");
+            this.yPos = table.getEntry("yPos");
+        }
+    }
 
     @FXML
     public void initialize() {
@@ -137,6 +148,10 @@ public class CoordinateWidget extends SimpleAnnotatedWidget {
         }.start();
     }
 
+    public static void setRobot(boolean robot) {
+        isRobot = robot;
+    }
+
     public class AddToQueue implements Runnable {
         private double x;
         private double y;
@@ -144,11 +159,13 @@ public class CoordinateWidget extends SimpleAnnotatedWidget {
         public void run() {
             try {
 
-//                this.x = Math.random() * 10;
-//                this.y = Math.random() * 10;
-
-                this.x = xPos.getDouble(0);
-                this.y = yPos.getDouble(0);
+                if (isRobot) {
+                    this.x = xPos.getDouble(0);
+                    this.y = yPos.getDouble(0);
+                } else {
+                    this.x = Math.random() * 10;
+                    this.y = Math.random() * 10;
+                }
 
                 if (isReversed) {
                     if (checkBox.isSelected()) {
