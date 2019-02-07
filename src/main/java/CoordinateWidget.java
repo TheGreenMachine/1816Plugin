@@ -148,7 +148,7 @@ public class CoordinateWidget extends SimpleAnnotatedWidget {
     }
 
     public static void setRobot(boolean robot) {
-        isRobot = robot;
+          isRobot = robot;
     }
 
     public class AddToQueue implements Runnable {
