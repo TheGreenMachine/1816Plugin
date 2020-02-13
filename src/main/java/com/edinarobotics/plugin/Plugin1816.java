@@ -10,7 +10,7 @@ import edu.wpi.first.shuffleboard.api.widget.WidgetType;
 import java.util.List;
 
 
-@Description(group = "com.edinarobotics", name = "Green Machine Plugin", version = "2.2.0", summary = "Base Plugin for all Green Machine Widgets")
+@Description(group = "com.edinarobotics", name = "Green Machine Plugin", version = "2.2.1", summary = "Base Plugin for all Green Machine Widgets")
 public class Plugin1816 extends Plugin {
 
     public Plugin1816() {
