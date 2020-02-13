@@ -1,7 +1,9 @@
-package com.edinarobotics.plugin;
+package com.edinarobotics.plugin.widget;
 
 import java.nio.ByteOrder;
 
+import com.edinarobotics.plugin.AppSinkListener;
+import com.edinarobotics.plugin.ImageContainer;
 import edu.wpi.first.shuffleboard.api.widget.Description;
 import edu.wpi.first.shuffleboard.api.widget.SimpleAnnotatedWidget;
 import javafx.scene.layout.Pane;

@@ -1,5 +1,8 @@
 package com.edinarobotics.plugin;
 
+import com.edinarobotics.plugin.data.Point2DType;
+import com.edinarobotics.plugin.widget.CoordinateWidget;
+import com.edinarobotics.plugin.widget.GstreamerWidget;
 import com.google.common.collect.ImmutableList;
 import edu.wpi.first.shuffleboard.api.data.DataType;
 import edu.wpi.first.shuffleboard.api.plugin.Description;

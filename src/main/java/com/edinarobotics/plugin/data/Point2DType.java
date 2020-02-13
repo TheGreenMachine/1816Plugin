@@ -1,4 +1,4 @@
-package com.edinarobotics.plugin;
+package com.edinarobotics.plugin.data;
 
 import edu.wpi.first.shuffleboard.api.data.ComplexDataType;
 

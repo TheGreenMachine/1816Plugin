@@ -1,5 +1,6 @@
-package com.edinarobotics.plugin;
+package com.edinarobotics.plugin.widget;
 
+import com.edinarobotics.plugin.data.Point2D;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
