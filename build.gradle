@@ -41,16 +41,22 @@ repositories {
 def shuffleboardVersion = '2020.2.2'
 
 dependencies {
-    compile group: "edu.wpi.first.shuffleboard", name: "api", version: shuffleboardVersion
-    compile group: 'edu.wpi.first.shuffleboard.plugin', name: 'networktables', version: shuffleboardVersion
+    compileClasspath group: "edu.wpi.first.shuffleboard", name: "api", version: shuffleboardVersion
+    compileClasspath group: 'edu.wpi.first.shuffleboard.plugin', name: 'networktables', version: shuffleboardVersion
     // https://mvnrepository.com/artifact/org.freedesktop.gstreamer/gst1-java-core
     // https://mvnrepository.com/artifact/org.freedesktop.gstreamer/gst1-java-fx
-    compile group: 'org.freedesktop.gstreamer', name: 'gst1-java-fx', version: '0.9.0'
+    compileClasspath group: 'org.freedesktop.gstreamer', name: 'gst1-java-fx', version: '0.9.0'
 }
 
 
 wrapper {
     gradleVersion = '6.1'
+}
+
+jar {
+    from {
+        configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
 }
 
 task installPlugin(type: Copy) {
