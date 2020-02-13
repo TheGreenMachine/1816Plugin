@@ -1,3 +1,5 @@
+package com.edinarobotics.plugin;
+
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -23,8 +25,7 @@ import java.util.function.DoubleSupplier;
 
 
 @Description(name = "Robot XY Grapher", dataTypes = Point2D.class)
-@ParametrizedController(value = "/coordinategui.fxml")
-
+@ParametrizedController(value = "/com/edinarobotics/plugin/coordinategui.fxml")
 public class CoordinateWidget extends SimpleAnnotatedWidget {
 
     private NetworkTableInstance inst;

@@ -1,3 +1,5 @@
+package com.edinarobotics.plugin;
+
 import java.nio.ByteOrder;
 
 import edu.wpi.first.shuffleboard.api.widget.Description;
@@ -7,15 +9,12 @@ import org.freedesktop.gstreamer.*;
 import org.freedesktop.gstreamer.message.Message;
 import org.freedesktop.gstreamer.elements.AppSink;
 
-import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
 
 /*
  * The main idea is to create a pipeline that has an appsink to display the images.
@@ -27,7 +26,6 @@ import javafx.stage.Stage;
  */
 
 @Description(name = "GStreamer", dataTypes = AppSinkListener.class)
-
 public class GstreamerWidget extends SimpleAnnotatedWidget {
 
 

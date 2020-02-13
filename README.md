@@ -6,7 +6,7 @@ the robot through a `NetworkTable`.
 
 ### What it includes
 
-This project includes the base plugin `Plugin1816` for future development of widgets. 
+This project includes the base plugin `com.edinarobotics.plugin.Plugin1816` for future development of widgets. 
 
 In order to add your widget to the plugin do as such:
 ```
@@ -34,7 +34,7 @@ that you have
 ```gradle
 jar {
     manifest {
-        attributes 'Main-Class' : ''
+        attributes 'com.edinarobotics.plugin.Main-Class' : ''
     }
     baseName = 'RobotGraphWidget'
 }

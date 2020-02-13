@@ -16,6 +16,7 @@ javafx {
 }
 
 version '2.2.0'
+group 'com.edinarobotics.plugin'
 
 jar {
     manifest {

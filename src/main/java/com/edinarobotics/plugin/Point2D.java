@@ -1,3 +1,5 @@
+package com.edinarobotics.plugin;
+
 import edu.wpi.first.shuffleboard.api.data.ComplexData;
 
 import java.util.HashMap;

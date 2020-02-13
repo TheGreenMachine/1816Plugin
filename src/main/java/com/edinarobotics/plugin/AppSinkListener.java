@@ -1,3 +1,5 @@
+package com.edinarobotics.plugin;
+
 import java.nio.ByteBuffer;
 
 import org.freedesktop.gstreamer.Buffer;
@@ -11,9 +13,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.PixelFormat;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
-
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 
 
 public class AppSinkListener implements AppSink.NEW_SAMPLE {
