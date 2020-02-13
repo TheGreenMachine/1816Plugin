@@ -2,7 +2,7 @@ plugins {
     id 'java'
     id 'application'
     id 'idea'
-    id 'org.openjfx.javafxplugin' version '0.0.7'
+    id 'org.openjfx.javafxplugin' version '0.0.8'
 }
 
 mainClassName = 'Main'
@@ -15,19 +15,22 @@ javafx {
     version = "11.0.1"
 }
 
-version '2.1.0'
+version '2.2.0'
 
 jar {
     manifest {
         attributes 'Main-Class' : ''
     }
+    from {
+        configurations.runtimeClasspath.collect() { it.isDirectory() ? it : zipTree(it) }
+    }
     exclude('Main')
-    baseName = '1816Plugin'
+    archiveBaseName = '1816Plugin'
 }
 
 
 ext.getShuffleboardVersion = {
-    return '2019.1.1'
+    return '2020.2.2'
 }
 
 
@@ -35,21 +38,29 @@ repositories {
     maven {
         url 'https://plugins.gradle.org/m2/'
     }
-    maven {
-        name = 'WPI'
-        url = 'http://first.wpi.edu/FRC/roborio/maven/release'
-    }
-
+    maven { url "https://jitpack.io" }
+    maven { url "https://frcmaven.wpi.edu/artifactory/release/"}
     mavenCentral()
 }
 
 dependencies {
-    compile 'edu.wpi.first.shuffleboard:api:'  + getShuffleboardVersion()
-    compile 'edu.wpi.first.shuffleboard.plugin:networktables:' + getShuffleboardVersion()
+    compile group: "edu.wpi.first.shuffleboard", name: "api", version: "2020.2.2"
+    compile group: 'edu.wpi.first.shuffleboard.plugin', name: 'networktables', version: getShuffleboardVersion()
+    // https://mvnrepository.com/artifact/org.freedesktop.gstreamer/gst1-java-core
+    // https://mvnrepository.com/artifact/org.freedesktop.gstreamer/gst1-java-fx
+    compile group: 'org.freedesktop.gstreamer', name: 'gst1-java-fx', version: '0.9.0'
 }
 
 
 wrapper {
-    gradleVersion = '5.0'
+    gradleVersion = '6.1'
 }
 
+task installPlugin(type: Copy) {
+    from(tasks.named("jar"))
+    into("${System.getProperty("user.home")}/Shuffleboard/plugins")
+    description = "Builds the plugin JAR and installs it in the Shuffleboard plugins directory."
+    group = "Shuffleboard Plugin"
+}
+
+// https://mvnrepository.com/artifact/org.freedesktop.gstreamer/gst1-java-fx
