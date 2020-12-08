@@ -1,0 +1,15 @@
+@import "/edu/wpi/first/shuffleboard/app/midnight.css";
+
+.root {
+  /* Swatch Colors - Green */
+
+  -swatch-100: rgb(129,199,132);
+  -swatch-200: rgb(129,199,132);
+  -swatch-300: rgb(129,199,132);
+  -swatch-400: rgb(102,187,106);
+  -swatch-500: rgb(76,175,80);
+
+  -swatch-gray: hsb(220, 13%, 18%);
+  -swatch-dark-gray: derive(-swatch-gray, -33%);
+  -swatch-light-gray: derive(-swatch-gray, 33%);
+}
